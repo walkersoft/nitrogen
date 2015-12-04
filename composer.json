@@ -6,7 +6,8 @@
         "crackertastic/fusion.http": "dev-master",
         "crackertastic/fusion.router": "dev-master",
         "crackertastic/fusion.log": "dev-master",
-        "crackertastic/fusion.container": "dev-master"
+        "crackertastic/fusion.container": "dev-master",
+        "crackertastic/fusion.payload": "dev-master"
     },
     "repositories": [
         {
@@ -28,6 +29,10 @@
         {
             "type": "vcs",
             "url": "git@bitbucket.org:crackertastic/fusion.container.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:crackertastic/fusion.payload.git"
         }
     ],
     "autoload": {
