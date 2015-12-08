@@ -8,10 +8,9 @@
 
 namespace Nitrogen;
 
+use Fusion\Container\DependencyResolver;
 
-use Fusion\Container\ConfigurableContainer;
-
-class Nitrogen extends ConfigurableContainer
+class Nitrogen extends DependencyResolver
 {
 
 }

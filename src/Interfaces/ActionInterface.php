@@ -8,6 +8,8 @@
 
 namespace Nitrogen\Interfaces;
 
+use Fusion\Payload\Interfaces\DomainPayloadInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 interface ActionInterface
 {
@@ -22,9 +24,46 @@ interface ActionInterface
      * if necessary.
      *
      * In the event this method invokes the responder directly then this method
-     * MUST return nulll.
+     * MUST return null.
      *
+     * @param array $data Optional data that may be used by the action.
      * @return \Nitrogen\Interfaces\ResponderInterface|null
      */
-    public function __invoke();
+    public function __invoke(array $data = []);
+
+    /**
+     * Sets a PSR-7 `ServerRequestInterface` instance in the action.
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @return self
+     */
+    public function setRequest(ServerRequestInterface $request);
+
+    /**
+     * Gets the current `ServerRequestInterface` instance.
+     *
+     * @return \Psr\Http\Message\ServerRequestInterface
+     * @throws \RuntimeException If the request has not been set.
+     */
+    public function getRequest();
+
+    /**
+     * Sets a `DomainPayloadInterface` instance in the action.
+     *
+     * A `DomainPayload` is a special object used to capture data from the domain
+     * layer of an application. Typically this will be information about a domain
+     * operation and any result information.
+     *
+     * @param \Fusion\Payload\Interfaces\DomainPayloadInterface $payload
+     * @return self
+     */
+    public function setDomainPayload(DomainPayloadInterface $payload);
+
+    /**
+     * Gets the current `DomainPayloadInterface` instance.
+     *
+     * @return \Fusion\Payload\Interfaces\DomainPayloadInterface
+     * @throws \RuntimeException When a domain payload has not been set.
+     */
+    public function getDomainPayload();
 }
