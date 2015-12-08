@@ -1,5 +1,6 @@
 {
     "name": "crackertastic/nitrogen",
+    "description": "A light-weight framework based on the ADR pattern where you bring your own domain.",
     "require": {
         "php": ">=5.4",
         "crackertastic/fusion.collection": "dev-master",
