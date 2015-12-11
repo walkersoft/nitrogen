@@ -37,7 +37,7 @@ abstract class AbstractResponder implements ResponderInterface
     protected $view = null;
 
     /**
-     * Sets a PSR-7 `ResponseInterface` in the responder.
+     * Sets a PSR-7 `ResponseInterface` instance in the responder.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
      * @return self
@@ -49,7 +49,7 @@ abstract class AbstractResponder implements ResponderInterface
     }
 
     /**
-     * Returns the PSR-7 `ResponseInterface` object.
+     * Returns the PSR-7 `ResponseInterface` instance.
      *
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \RuntimeException If response has not been set.
