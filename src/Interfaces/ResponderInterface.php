@@ -53,6 +53,7 @@ interface ResponderInterface
      * @return \Nitrogen\Interfaces\ViewInterface
      * @throws \RuntimeException If the view has not been set.
      */
+    public function getView();
 
     /**
      * Sets a `PayloadInterface` instance in the responder.
@@ -68,4 +69,6 @@ interface ResponderInterface
      * @return \Fusion\Payload\Interfaces\PayloadInterface
      * @throws \RuntimeException If the payload has not been set.
      */
+
+    public function getPayload();
 }
