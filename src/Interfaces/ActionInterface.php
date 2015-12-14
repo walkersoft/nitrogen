@@ -48,6 +48,22 @@ interface ActionInterface
     public function getRequest();
 
     /**
+     * Sets a `ResponderInterface` instance.
+     *
+     * @param \Nitrogen\Interfaces\ResponderInterface $responder
+     * @return self
+     */
+    public function setResponder(ResponderInterface $responder);
+
+    /**
+     * Gets the current `ResponderInterface` instance.
+     *
+     * @return \Nitrogen\Interfaces\ResponderInterface
+     * @throws \RuntimeException If the responder has not been set.
+     */
+    public function getResponder();
+
+    /**
      * Sets a `DomainPayloadInterface` instance in the action.
      *
      * A `DomainPayload` is a special object used to capture data from the domain

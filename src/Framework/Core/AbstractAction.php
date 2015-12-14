@@ -10,6 +10,7 @@ namespace Nitrogen\Framework\Core;
 
 use Fusion\Payload\Interfaces\DomainPayloadInterface;
 use Nitrogen\Interfaces\ActionInterface;
+use Nitrogen\Interfaces\ResponderInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 abstract class AbstractAction implements ActionInterface
@@ -27,6 +28,13 @@ abstract class AbstractAction implements ActionInterface
      * @var \Fusion\Payload\Interfaces\DomainPayloadInterface
      */
     protected $payload = null;
+
+    /**
+     * Responder.
+     *
+     * @var \Nitrogen\Interfaces\ResponderInterface
+     */
+    protected $responder = null;
 
     /**
      * {@inheritdoc}
@@ -50,6 +58,30 @@ abstract class AbstractAction implements ActionInterface
         }
 
         return $this->request;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setResponder(ResponderInterface $responder)
+    {
+        $this->responder = $responder;
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getResponder()
+    {
+        if (!$this->responder instanceof ResponderInterface)
+        {
+            throw new \RuntimeException(
+                'Unable to retrieve the responder - the data is invalid or missing.'
+            );
+        }
+
+        return $this->responder;
     }
 
     /**
