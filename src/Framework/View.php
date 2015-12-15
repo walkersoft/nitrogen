@@ -13,5 +13,22 @@ use Nitrogen\Framework\Core\AbstractView;
 
 class View extends AbstractView
 {
+    /**
+     * Constructor.
+     *
+     * Basic view implementation.  Accepts a string that is a template files and
+     * an array of attachments that will be extracted into the view.
+     *
+     * @param string $template
+     * @param array $attachments
+     */
+    public function __construct($template, $attachments = [])
+    {
+        $this->template = $template;
 
+        foreach($attachments as $key => $attachment)
+        {
+            $this->setAttachment($key, $attachment);
+        }
+    }
 }
