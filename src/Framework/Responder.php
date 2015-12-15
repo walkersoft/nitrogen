@@ -37,9 +37,9 @@ class Responder extends AbstractResponder
      * @param \Nitrogen\Interfaces\ViewInterface $view
      */
     public function __construct(
-        ResponseInterface $response,
-        PayloadInterface $payload,
-        ViewInterface $view
+        ResponseInterface $response = null,
+        PayloadInterface $payload = null,
+        ViewInterface $view = null
     )
     {
         $payload = $payload === null
@@ -51,7 +51,7 @@ class Responder extends AbstractResponder
             : $response;
 
         $view = $view === null
-            ? new View()
+            ? new View('', [])
             : $view;
 
         $this->setResponse($response);

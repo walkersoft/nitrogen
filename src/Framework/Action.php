@@ -65,6 +65,7 @@ class Action extends AbstractAction
     public function __invoke(array $data = [])
     {
         //This method will not provide any meaningful implementation
+        //But a class inheriting it will (or at least should)
         $this->payload->setSuggestedResponseCode(417);
     }
 }
