@@ -93,7 +93,7 @@ abstract class AbstractResponder implements ResponderInterface
             );
         }
 
-        return $this->response;
+        return $this->view;
     }
 
     /**
@@ -123,6 +123,6 @@ abstract class AbstractResponder implements ResponderInterface
             );
         }
 
-        return $this->response;
+        return $this->payload;
     }
 }
