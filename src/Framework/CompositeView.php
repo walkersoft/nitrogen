@@ -14,7 +14,6 @@ use Nitrogen\Interfaces\ViewInterface;
 
 class CompositeView implements CompositeViewInterface
 {
-
     /**
      * Array of views.
      *
@@ -60,7 +59,7 @@ class CompositeView implements CompositeViewInterface
      * the composite as a given index and MUST overwrite any view that exists
      * at the given index.
      *
-     * The index key may be any key that is acceptable as a key in a PHP array.
+     * The index key MAY be any key that is acceptable as a key in a PHP array.
      *
      * This method MUST throw an exception if the key is invalid.
      *
@@ -71,7 +70,7 @@ class CompositeView implements CompositeViewInterface
      */
     public function insertView($key, ViewInterface $view)
     {
-        if(!is_int($key) || !is_string($key))
+        if(!is_int($key) && !is_string($key))
         {
             throw new \InvalidArgumentException(
                 sprintf('View key index must be a string or an int. %s given.', gettype($key))
@@ -79,7 +78,6 @@ class CompositeView implements CompositeViewInterface
         }
 
         $this->views[$key] = $view;
-
         return $this;
     }
 
@@ -99,7 +97,7 @@ class CompositeView implements CompositeViewInterface
      */
     public function getView($key)
     {
-        if(!is_int($key) || !is_string($key))
+        if(!is_int($key) && !is_string($key))
         {
             throw new \InvalidArgumentException(
                 sprintf('View key index must be a string or an int. %s given.', gettype($key))

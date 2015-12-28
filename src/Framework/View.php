@@ -8,7 +8,6 @@
 
 namespace Nitrogen\Framework;
 
-
 use Nitrogen\Framework\Core\AbstractView;
 
 class View extends AbstractView
@@ -24,7 +23,7 @@ class View extends AbstractView
      */
     public function __construct($template, $attachments = [])
     {
-        $this->template = $template;
+        $this->setTemplate($template);
 
         foreach($attachments as $key => $attachment)
         {

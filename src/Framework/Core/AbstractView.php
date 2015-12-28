@@ -38,7 +38,7 @@ class AbstractView implements ViewInterface
      */
     public function render()
     {
-        if(file_exists($this->template))
+        if (file_exists($this->template))
         {
             extract($this->attachments);
             require $this->template;
@@ -60,7 +60,7 @@ class AbstractView implements ViewInterface
     {
         $validName = '/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/';
 
-        if(!is_string($key) || preg_match($validName, $key) !== 1)
+        if (!is_string($key) || preg_match($validName, $key) !== 1)
         {
             throw new \InvalidArgumentException(
                 sprintf(
@@ -71,16 +71,29 @@ class AbstractView implements ViewInterface
         }
 
         $this->attachments[$key] = $value;
+        return $this;
     }
 
     /**
-     * Sets the views template.
+     * Sets the view's template.
      *
      * @param string $template
+     * @return self
+     * @throws \InvalidArgumentException When `$template` is not a string.
      */
     public function setTemplate($template)
     {
+        if (!is_string($template))
+        {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Template must be presented as a string. %s given.', gettype($template)
+                )
+            );
+        }
+
         $this->template = $template;
+        return $this;
     }
 
 }

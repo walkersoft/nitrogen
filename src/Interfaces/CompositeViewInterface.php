@@ -41,7 +41,7 @@ interface CompositeViewInterface extends ViewInterface
     public function insertView($key, ViewInterface $view);
 
     /**
-     * Gets a view a the specified index.
+     * Gets a view at the specified index.
      *
      * This method will check the composite for a view at the specified index
      * key and return it.
