@@ -9,9 +9,9 @@
 namespace Nitrogen\Interfaces;
 
 
-use Fusion\Container\Interfaces\DependencyResolverInterface;
+use Fusion\Container\Interfaces\DependencyRepositoryInterface;
 
-interface DependencyResolverProxyInterface extends DependencyResolverInterface
+interface DependencyRepositoryProxyInterface extends DependencyRepositoryInterface
 {
     /**
      * Sets a `DependencyResolverInterface` instance.
@@ -19,10 +19,10 @@ interface DependencyResolverProxyInterface extends DependencyResolverInterface
      * Allows a class implementing this interface to obtain a new dependency
      * resolver from client code.
      *
-     * @param \Fusion\Container\Interfaces\DependencyResolverInterface $resolver
+     * @param \Fusion\Container\Interfaces\DependencyRepositoryInterface $resolver
      * @return self
      */
-    public function setResolver(DependencyResolverInterface $resolver);
+    public function setResolver(DependencyRepositoryInterface $resolver);
 
     /**
      * Gets the current `DependencyResolverInterface` instance.
@@ -30,7 +30,7 @@ interface DependencyResolverProxyInterface extends DependencyResolverInterface
      * Allows a class implementing this interface to expose currently dependency
      * resolver being used.
      *
-     * @return \Fusion\Container\Interfaces\DependencyResolverInterface
+     * @return \Fusion\Container\Interfaces\DependencyRepositoryInterface
      */
     public function getResolver();
 }

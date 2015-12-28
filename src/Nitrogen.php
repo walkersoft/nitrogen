@@ -8,11 +8,12 @@
 
 namespace Nitrogen;
 
-use Fusion\Container\DependencyResolver;
-use Fusion\Container\Interfaces\DependencyResolverInterface;
-use Nitrogen\Interfaces\DependencyResolverProxyInterface;
+use Fusion\Container\ConfigurableContainer;
+use Fusion\Container\DependencyRepository;
+use Fusion\Container\Interfaces\DependencyRepositoryInterface;
+use Nitrogen\Interfaces\DependencyRepositoryProxyInterface;
 
-class Nitrogen implements DependencyResolverProxyInterface
+class Nitrogen extends ConfigurableContainer implements DependencyRepositoryProxyInterface
 {
 
     /**
@@ -21,26 +22,47 @@ class Nitrogen implements DependencyResolverProxyInterface
      * This is used by Nitrogen to instantiate various classes that have not
      * been overidden by an application.
      *
-     * @var \Fusion\Container\Interfaces\DependencyResolverInterface
+     * @var \Fusion\Container\Interfaces\DependencyRepositoryInterface
      */
     private $resolver = null;
 
     /**
      * Constructor.
      *
-     * Accepts an implementation of the Fusion `DependencyResolverInterface` as
+     * Accepts an implementation of the Fusion `DependencyRepositoryInterface` as
      * an optional argument or a default implementation will be created.
      *
-     * @param \Fusion\Container\Interfaces\DependencyResolverInterface $resolver
+     * @param \Fusion\Container\Interfaces\DependencyRepositoryInterface $resolver
      */
-    public function __construct(DependencyResolverInterface $resolver = null)
+    public function __construct(DependencyRepositoryInterface $resolver = null)
     {
+        parent::__construct();
+
         if ($resolver === null)
         {
-            $resolver = new DependencyResolver();
+            $resolver = new DependencyRepository();
         }
 
         $this->setResolver($resolver);
+    }
+
+    /**
+     * Sets default options for Nitrogen.
+     *
+     * Injects values into the container that will be used throughout the
+     * framework to dictate various behaviors.
+     */
+    protected function configureDefaultOptions()
+    {
+        //Define configuration classes
+        $this['config.repository-bindings'] = '\Nitrogen\Framework\Core\Repository';
+
+        //Define default component classes
+        $this['component.server-request'] = '\Fusion\Http\ServerRequestFactory';
+        $this['component.router'] = '\Fusion\Router\Router';
+        $this['component.routing'] = '\Fusion\Router\RouteGroup';
+        $this['component.action-dispatcher'] = '\Nitrogen\Framework\ActionDispatcher';
+        $this['component.responder-dispatcher'] = '\Nitrogen\Framework\ResponderDispatcher';
     }
 
     /**
@@ -78,7 +100,7 @@ class Nitrogen implements DependencyResolverProxyInterface
     /**
      * {@inheritdoc}
      */
-    public function setResolver(DependencyResolverInterface $resolver)
+    public function setResolver(DependencyRepositoryInterface $resolver)
     {
         $this->resolver = $resolver;
     }
@@ -89,5 +111,21 @@ class Nitrogen implements DependencyResolverProxyInterface
     public function getResolver()
     {
         return $this->resolver;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function saveAll($save = true)
+    {
+        $this->resolver->saveAll($save);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function saveNext($class = true)
+    {
+        $this->resolver->saveNext($class);
     }
 }
