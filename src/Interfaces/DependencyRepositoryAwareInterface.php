@@ -8,10 +8,9 @@
 
 namespace Nitrogen\Interfaces;
 
-
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
 
-interface DependencyRepositoryProxyInterface extends DependencyRepositoryInterface
+interface DependencyRepositoryAwareInterface
 {
     /**
      * Sets a `DependencyResolverInterface` instance.

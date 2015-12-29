@@ -9,6 +9,7 @@
 namespace Nitrogen\Framework\Config;
 
 
+use Fusion\Container\Interfaces\DependencyRepositoryInterface;
 use Fusion\Http\ServerRequestFactory;
 
 class Bindings
@@ -18,7 +19,7 @@ class Bindings
      *
      * @param \Fusion\Container\Interfaces\DependencyRepositoryInterface $resolver
      */
-    public function __invoke($resolver)
+    public function __invoke(DependencyRepositoryInterface $resolver)
     {
         /*
          * Routing bindings

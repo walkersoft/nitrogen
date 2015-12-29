@@ -12,9 +12,9 @@ use Fusion\Container\ConfigurableContainer;
 use Fusion\Container\DependencyRepository;
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
 use Nitrogen\Framework\Config\Bindings;
-use Nitrogen\Interfaces\DependencyRepositoryProxyInterface;
+use Nitrogen\Interfaces\DependencyRepositoryAwareInterface;
 
-class Nitrogen extends ConfigurableContainer implements DependencyRepositoryProxyInterface
+class Nitrogen extends ConfigurableContainer implements DependencyRepositoryAwareInterface
 {
 
     /**
@@ -101,9 +101,9 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryProx
      */
     public function getRouting()
     {
-        if ($this->routing === null)
+        if ($this->routing === null && $this->has('component.routing'))
         {
-            $this->routing = $this->resolve($this['component.routing']);
+            $this->routing = $this->resolver->resolve($this['component.routing']);
         }
 
         return $this->routing;
@@ -116,9 +116,9 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryProx
      */
     protected function getRouter()
     {
-        if ($this->router === null)
+        if ($this->router === null && $this->has('component.router'))
         {
-            $this->router = $this->resolve($this['component.router']);
+            $this->router = $this->resolver->resolve($this['component.router']);
         }
 
         return $this->router;
@@ -133,43 +133,8 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryProx
     protected function configureDefaultOptions()
     {
         //Define default component classes
-        $this['component.server-request'] = '\Psr\Http\Message\ServerRequestInterface';
         $this['component.router'] = '\Fusion\Router\Router';
         $this['component.routing'] = '\Fusion\Router\RouteGroup';
-        $this['component.action-dispatcher'] = '\Nitrogen\Framework\ActionDispatcher';
-        $this['component.responder-dispatcher'] = '\Nitrogen\Framework\ResponderDispatcher';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function resolve($dependency, array $callbackArgs = [])
-    {
-        return $this->resolver->resolve($dependency, $callbackArgs);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function bindContract($contract, $class)
-    {
-        $this->resolver->bindContract($contract, $class);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function bindInstance($dependency, $object)
-    {
-        $this->resolver->bindInstance($dependency, $object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function bindCallback($dependency, callable $callback)
-    {
-        $this->resolver->bindCallback($dependency, $callback);
     }
 
     /**
@@ -186,21 +151,5 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryProx
     public function getResolver()
     {
         return $this->resolver;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function saveAll($save = true)
-    {
-        $this->resolver->saveAll($save);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function saveNext($class = true)
-    {
-        $this->resolver->saveNext($class);
     }
 }
