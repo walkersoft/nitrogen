@@ -11,6 +11,7 @@ namespace Nitrogen;
 use Fusion\Container\ConfigurableContainer;
 use Fusion\Container\DependencyRepository;
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
+use Nitrogen\Framework\Config\Bindings;
 use Nitrogen\Interfaces\DependencyRepositoryProxyInterface;
 
 class Nitrogen extends ConfigurableContainer implements DependencyRepositoryProxyInterface
@@ -27,14 +28,44 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryProx
     private $resolver = null;
 
     /**
+     * The routing agent.
+     *
+     * In the context of Nitrogen the routing agent is an object that implements
+     * the `\Fusion\Router\Interfaces\RouteGroupInterface` interface.
+     *
+     * @var \Fusion\Router\Interfaces\RouteGroupInterface
+     */
+    private $routing = null;
+
+    /**
+     * The router.
+     *
+     * In the context of Nitrogen the router is an object that implements the
+     * `\Fusion\Router\Interfaces\RouterInterface`.
+     *
+     * The router itself SHOULD NOT be used as the mechanism to add routes by
+     * client code that consumes the router.  Clients SHOULD use an implementation
+     * of the `\Fusion\Router\Interfaces\RouteGroupInterface` which contains
+     * all the helper methods to create and configure routes that are being stored
+     * in the router.
+     *
+     * @var \Fusion\Router\Interfaces\RouterInterface
+     */
+    private $router = null;
+
+    /**
      * Constructor.
      *
      * Accepts an implementation of the Fusion `DependencyRepositoryInterface` as
      * an optional argument or a default implementation will be created.
      *
      * @param \Fusion\Container\Interfaces\DependencyRepositoryInterface $resolver
+     * @param \Nitrogen\Framework\Config\Bindings $bindings
      */
-    public function __construct(DependencyRepositoryInterface $resolver = null)
+    public function __construct(
+        DependencyRepositoryInterface $resolver = null,
+        Bindings $bindings = null
+    )
     {
         parent::__construct();
 
@@ -43,7 +74,54 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryProx
             $resolver = new DependencyRepository();
         }
 
+        if ($bindings === null)
+        {
+            $bindings = new Bindings();
+        }
+
         $this->setResolver($resolver);
+        $this->configureDefaultOptions();
+        $bindings($this->getResolver());
+    }
+
+    /**
+     * Invokes a `Bindings` object with a resolver.
+     *
+     * @param Bindings $bindings
+     */
+    public function applyBindings(Bindings $bindings)
+    {
+        $bindings($this->getResolver());
+    }
+
+    /**
+     * Returns the routing agent, e.g. the object used to create routes.
+     *
+     * @return \Fusion\Router\Interfaces\RouteGroupInterface
+     */
+    public function getRouting()
+    {
+        if ($this->routing === null)
+        {
+            $this->routing = $this->resolve($this['component.routing']);
+        }
+
+        return $this->routing;
+    }
+
+    /**
+     * Returns the router implementation.
+     *
+     * @return \Fusion\Router\Interfaces\RouterInterface
+     */
+    protected function getRouter()
+    {
+        if ($this->router === null)
+        {
+            $this->router = $this->resolve($this['component.router']);
+        }
+
+        return $this->router;
     }
 
     /**
@@ -54,11 +132,8 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryProx
      */
     protected function configureDefaultOptions()
     {
-        //Define configuration classes
-        $this['config.repository-bindings'] = '\Nitrogen\Framework\Core\Repository';
-
         //Define default component classes
-        $this['component.server-request'] = '\Fusion\Http\ServerRequestFactory';
+        $this['component.server-request'] = '\Psr\Http\Message\ServerRequestInterface';
         $this['component.router'] = '\Fusion\Router\Router';
         $this['component.routing'] = '\Fusion\Router\RouteGroup';
         $this['component.action-dispatcher'] = '\Nitrogen\Framework\ActionDispatcher';
