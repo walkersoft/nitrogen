@@ -82,11 +82,11 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryAwar
         //Apply all bindings
         if ($this->has('nitrogen.config.bindings'))
         {
-            $this->applyBindings($this->resolver->resolve($this['nitrogen.config.bindings']));
+            $this->applyBindings($this->resolver->resolve($this->get('nitrogen.config.bindings')));
         }
         if ($this->has('app.config.bindings'))
         {
-            $this->applyBindings($this->resolver->resolve($this['app.config.bindings']));
+            $this->applyBindings($this->resolver->resolve($this->get('app.config.bindings')));
         }
 
         var_dump($this);
