@@ -69,7 +69,8 @@ class Bindings implements DependencyBindingsInterface
         );
         $resolver->bindCallback(
             '\Psr\Http\Message\ServerRequestInterface',
-            function () {
+            function ()
+            {
                 return (new ServerRequestFactory())->makeServerRequest();
             }
         );

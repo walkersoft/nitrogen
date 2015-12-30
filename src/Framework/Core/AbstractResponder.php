@@ -40,6 +40,7 @@ abstract class AbstractResponder implements ResponderInterface
      * Sets a PSR-7 `ResponseInterface` instance in the responder.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
+     *
      * @return self
      */
     public function setResponse(ResponseInterface $response)
@@ -56,7 +57,7 @@ abstract class AbstractResponder implements ResponderInterface
      */
     public function getResponse()
     {
-        if(!$this->response instanceof ResponseInterface)
+        if (!$this->response instanceof ResponseInterface)
         {
             throw new \RuntimeException(
                 'Unable to retrieve the response - the data is invalid or missing.'
@@ -70,6 +71,7 @@ abstract class AbstractResponder implements ResponderInterface
      * Sets an instance of a `ViewInterface` in the responder.
      *
      * @param \Nitrogen\Interfaces\ViewInterface $view
+     *
      * @return self
      */
     public function setView(ViewInterface $view)
@@ -86,7 +88,7 @@ abstract class AbstractResponder implements ResponderInterface
      */
     public function getView()
     {
-        if(!$this->view instanceof ViewInterface)
+        if (!$this->view instanceof ViewInterface)
         {
             throw new \RuntimeException(
                 'Unable to retrieve the view - the data is invalid or missing.'
@@ -100,6 +102,7 @@ abstract class AbstractResponder implements ResponderInterface
      * Sets a `PayloadInterface` instance in the responder.
      *
      * @param \Fusion\Payload\Interfaces\PayloadInterface
+     *
      * @return self
      */
     public function setPayload(PayloadInterface $payload)
@@ -116,7 +119,7 @@ abstract class AbstractResponder implements ResponderInterface
      */
     public function getPayload()
     {
-        if(!$this->payload instanceof PayloadInterface)
+        if (!$this->payload instanceof PayloadInterface)
         {
             throw new \RuntimeException(
                 'Unable to retrieve the payload - the data is invalid or missing.'

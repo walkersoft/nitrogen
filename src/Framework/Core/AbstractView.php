@@ -53,6 +53,7 @@ class AbstractView implements ViewInterface
      *
      * @param string $key
      * @param mixed $value
+     *
      * @return self
      * @throws \InvalidArgumentException When a key is an invalid variable name.
      */
@@ -78,6 +79,7 @@ class AbstractView implements ViewInterface
      * Sets the view's template.
      *
      * @param string $template
+     *
      * @return self
      * @throws \InvalidArgumentException When `$template` is not a string.
      */

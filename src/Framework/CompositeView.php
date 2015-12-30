@@ -44,6 +44,7 @@ class CompositeView implements CompositeViewInterface
      * the composite at the next available index. (e.g. numerical array index.)
      *
      * @param \Nitrogen\Interfaces\ViewInterface $view
+     *
      * @return self
      */
     public function addView(ViewInterface $view)
@@ -65,12 +66,13 @@ class CompositeView implements CompositeViewInterface
      *
      * @param mixed $key
      * @param \Nitrogen\Interfaces\ViewInterface $view
+     *
      * @return self
      * @throws \InvalidArgumentException When `$key` is invalid.
      */
     public function insertView($key, ViewInterface $view)
     {
-        if(!is_int($key) && !is_string($key))
+        if (!is_int($key) && !is_string($key))
         {
             throw new \InvalidArgumentException(
                 sprintf('View key index must be a string or an int. %s given.', gettype($key))
@@ -91,20 +93,21 @@ class CompositeView implements CompositeViewInterface
      * view does not exist at the specified index.
      *
      * @param mixed $key
+     *
      * @return \Nitrogen\Interfaces\ViewInterface
      * @throws \InvalidArgumentException When `$key` is not valid.
      * @throws \OutOfBoundsException When a view does not exist at the `$key`.
      */
     public function getView($key)
     {
-        if(!is_int($key) && !is_string($key))
+        if (!is_int($key) && !is_string($key))
         {
             throw new \InvalidArgumentException(
                 sprintf('View key index must be a string or an int. %s given.', gettype($key))
             );
         }
 
-        if(!array_key_exists($key, $this->views))
+        if (!array_key_exists($key, $this->views))
         {
             throw new \OutOfBoundsException(
                 sprintf('View could not be found at index: %s.', $key)

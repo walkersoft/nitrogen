@@ -25,7 +25,7 @@ class CompositeViewTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         unset($this->view);
-        if(file_exists('foo.txt'))
+        if (file_exists('foo.txt'))
         {
             unlink('foo.txt');
         }
@@ -97,6 +97,7 @@ class CompositeViewTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      * @dataProvider badStringOrIntData
+     *
      * @param $key
      */
     public function testExceptionThrownWhenInsertKeyIsBad($key)
@@ -107,6 +108,7 @@ class CompositeViewTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      * @dataProvider badStringOrIntData
+     *
      * @param $key
      */
     public function testExceptionThrownWhenRetrievalKeyIsBad($key)
@@ -117,6 +119,7 @@ class CompositeViewTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \OutOfBoundsException
      * @dataProvider validButMissingKey
+     *
      * @param $key
      */
     public function testExceptionThrownWhenViewKeyDoesNotExist($key)

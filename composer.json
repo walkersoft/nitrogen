@@ -1,45 +1,45 @@
 {
-    "name": "crackertastic/nitrogen",
-    "description": "A light-weight framework based on the ADR pattern where you bring your own domain.",
-    "require": {
-        "php": ">=5.4",
-        "crackertastic/fusion.collection": "dev-master",
-        "crackertastic/fusion.http": "dev-master",
-        "crackertastic/fusion.router": "dev-master",
-        "crackertastic/fusion.log": "dev-master",
-        "crackertastic/fusion.container": "dev-master",
-        "crackertastic/fusion.payload": "dev-master"
+  "name": "crackertastic/nitrogen",
+  "description": "A light-weight framework based on the ADR pattern where you bring your own domain.",
+  "require": {
+    "php": ">=5.4",
+    "crackertastic/fusion.collection": "dev-master",
+    "crackertastic/fusion.http": "dev-master",
+    "crackertastic/fusion.router": "dev-master",
+    "crackertastic/fusion.log": "dev-master",
+    "crackertastic/fusion.container": "dev-master",
+    "crackertastic/fusion.payload": "dev-master"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@bitbucket.org:crackertastic/fusion.collection.git"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:crackertastic/fusion.collection.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:crackertastic/fusion.http.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:crackertastic/fusion.router.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:crackertastic/fusion.log.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:crackertastic/fusion.container.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:crackertastic/fusion.payload.git"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Nitrogen\\": "src/",
-            "Nitrogren\\Tests\\": "test/"
-        }
+    {
+      "type": "vcs",
+      "url": "git@bitbucket.org:crackertastic/fusion.http.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@bitbucket.org:crackertastic/fusion.router.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@bitbucket.org:crackertastic/fusion.log.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@bitbucket.org:crackertastic/fusion.container.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@bitbucket.org:crackertastic/fusion.payload.git"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Nitrogen\\": "src/",
+      "Nitrogren\\Tests\\": "test/"
+    }
+  }
 }

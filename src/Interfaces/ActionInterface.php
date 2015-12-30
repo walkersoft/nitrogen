@@ -27,6 +27,7 @@ interface ActionInterface
      * MUST return null.
      *
      * @param array $data Optional data that may be used by the action.
+     *
      * @return \Nitrogen\Interfaces\ResponderInterface|null
      */
     public function __invoke(array $data = []);
@@ -35,6 +36,7 @@ interface ActionInterface
      * Sets a PSR-7 `ServerRequestInterface` instance in the action.
      *
      * @param \Psr\Http\Message\ServerRequestInterface $request
+     *
      * @return self
      */
     public function setRequest(ServerRequestInterface $request);
@@ -51,6 +53,7 @@ interface ActionInterface
      * Sets a `ResponderInterface` instance.
      *
      * @param \Nitrogen\Interfaces\ResponderInterface $responder
+     *
      * @return self
      */
     public function setResponder(ResponderInterface $responder);
@@ -71,6 +74,7 @@ interface ActionInterface
      * operation and any result information.
      *
      * @param \Fusion\Payload\Interfaces\DomainPayloadInterface $payload
+     *
      * @return self
      */
     public function setDomainPayload(DomainPayloadInterface $payload);

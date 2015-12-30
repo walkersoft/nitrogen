@@ -27,6 +27,7 @@ interface ResponderInterface
      * Sets a PSR-7 `ResponseInterface` in the responder.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
+     *
      * @return self
      */
     public function setResponse(ResponseInterface $response);
@@ -43,6 +44,7 @@ interface ResponderInterface
      * Sets an instance of a `ViewInterface` in the responder.
      *
      * @param \Nitrogen\Interfaces\ViewInterface $view
+     *
      * @return self
      */
     public function setView(ViewInterface $view);
@@ -59,6 +61,7 @@ interface ResponderInterface
      * Sets a `PayloadInterface` instance in the responder.
      *
      * @param \Fusion\Payload\Interfaces\PayloadInterface
+     *
      * @return self
      */
     public function setPayload(PayloadInterface $payload);

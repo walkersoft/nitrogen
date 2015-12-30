@@ -25,7 +25,7 @@ class View extends AbstractView
     {
         $this->setTemplate($template);
 
-        foreach($attachments as $key => $attachment)
+        foreach ($attachments as $key => $attachment)
         {
             $this->setAttachment($key, $attachment);
         }

@@ -13,8 +13,11 @@ use Fusion\Container\DependencyRepository;
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
 use Nitrogen\Interfaces\DependencyBindingsInterface;
 use Nitrogen\Interfaces\DependencyRepositoryAwareInterface;
+use Nitrogen\Interfaces\RunnableInterface;
 
-class Nitrogen extends ConfigurableContainer implements DependencyRepositoryAwareInterface
+class Nitrogen extends ConfigurableContainer implements
+    DependencyRepositoryAwareInterface,
+    RunnableInterface
 {
 
     /**
@@ -75,25 +78,20 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryAwar
     }
 
     /**
-     * Executes the application.
+     * Executes the framework.
      */
-    public function execute()
+    public function run()
     {
         //Apply all bindings
-        if ($this->has('nitrogen.config.bindings'))
+        if ($this->has('nitrogen.bindings'))
         {
-            $bindings = $this->resolver->resolve($this->get('nitrogen.config.bindings'));
-            var_dump($bindings);
-            $this->applyBindings($bindings);
-        }
-        if ($this->has('app.config.bindings'))
-        {
-            $bindings = $this->resolver->resolve($this->get('app.config.bindings'));
-            $this->applyBindings($bindings);
-            var_dump($bindings);
+            $this->applyBindings($this->resolver->resolve($this->get('nitrogen.bindings')));
         }
 
-        var_dump($this);
+        if ($this->has('app.bindings'))
+        {
+            $this->applyBindings($this->resolver->resolve($this->get('app.bindings')));
+        }
     }
 
     /**

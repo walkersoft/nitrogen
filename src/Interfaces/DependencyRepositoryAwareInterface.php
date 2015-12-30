@@ -19,6 +19,7 @@ interface DependencyRepositoryAwareInterface
      * resolver from client code.
      *
      * @param \Fusion\Container\Interfaces\DependencyRepositoryInterface $resolver
+     *
      * @return self
      */
     public function setResolver(DependencyRepositoryInterface $resolver);

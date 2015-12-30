@@ -53,7 +53,8 @@ class ResponderTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingResponse()
     {
-        $this->assertInstanceOf('\Nitrogen\Interfaces\ResponderInterface',
+        $this->assertInstanceOf(
+            '\Nitrogen\Interfaces\ResponderInterface',
             $this->responder->setResponse(
                 $this->getMock('\Psr\Http\Message\ResponseInterface')
             )
@@ -62,7 +63,8 @@ class ResponderTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingPayload()
     {
-        $this->assertInstanceOf('\Nitrogen\Interfaces\ResponderInterface',
+        $this->assertInstanceOf(
+            '\Nitrogen\Interfaces\ResponderInterface',
             $this->responder->setPayload(
                 $this->getMock('\Fusion\Payload\Interfaces\PayloadInterface')
             )
@@ -71,7 +73,8 @@ class ResponderTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingView()
     {
-        $this->assertInstanceOf('\Nitrogen\Interfaces\ResponderInterface',
+        $this->assertInstanceOf(
+            '\Nitrogen\Interfaces\ResponderInterface',
             $this->responder->setView(
                 $this->getMock('\Nitrogen\Interfaces\ViewInterface')
             )

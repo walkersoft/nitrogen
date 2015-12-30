@@ -76,6 +76,7 @@ class AbstractViewTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      * @dataProvider badAttachmentKeyData
+     *
      * @param $key
      */
     public function testExceptionThrowWithBadAttachmentKey($key)
@@ -86,6 +87,7 @@ class AbstractViewTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      * @dataProvider badStringData
+     *
      * @param $template
      */
     public function testExceptionThrowWithBadTemplate($template)

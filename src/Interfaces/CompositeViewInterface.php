@@ -18,6 +18,7 @@ interface CompositeViewInterface extends ViewInterface
      * the composite at the next available index. (e.g. numerical array index.)
      *
      * @param \Nitrogen\Interfaces\ViewInterface $view
+     *
      * @return self
      */
     public function addView(ViewInterface $view);
@@ -35,6 +36,7 @@ interface CompositeViewInterface extends ViewInterface
      *
      * @param mixed $key
      * @param \Nitrogen\Interfaces\ViewInterface $view
+     *
      * @return self
      * @throws \InvalidArgumentException When `$key` is invalid.
      */
@@ -50,6 +52,7 @@ interface CompositeViewInterface extends ViewInterface
      * view does not exist at the specified index.
      *
      * @param mixed $key
+     *
      * @return \Nitrogen\Interfaces\ViewInterface
      * @throws \InvalidArgumentException When `$key` is not valid.
      * @throws \OutOfBoundsException When a view does not exist at the `$key`.

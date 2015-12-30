@@ -95,7 +95,9 @@ class ActionTest extends \PHPUnit_Framework_TestCase
     public function testInvokingActionReturnsResponder()
     {
         //$mock = $this->getMock('\Nitrogen\Framework\Action', ['__invoke']);
-        $mock = $this->getMockBuilder('\Nitrogen\Framework\Action')->setMethods(['__invoke'])->getMock();
+        $mock = $this->getMockBuilder('\Nitrogen\Framework\Action')
+                     ->setMethods(['__invoke'])
+                     ->getMock();
         $mock->expects($this->once())
              ->method('__invoke')
              ->will($this->returnValue($this->getMock('\Nitrogen\Interfaces\ResponderInterface')));

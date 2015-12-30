@@ -23,7 +23,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         unset($this->view);
-        if(file_exists('foo.txt'))
+        if (file_exists('foo.txt'))
         {
             unlink('foo.txt');
         }
