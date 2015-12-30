@@ -11,7 +11,7 @@ namespace Nitrogen;
 use Fusion\Container\ConfigurableContainer;
 use Fusion\Container\DependencyRepository;
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
-use Nitrogen\Framework\Config\Bindings;
+use Nitrogen\Interfaces\DependencyBindingsInterface;
 use Nitrogen\Interfaces\DependencyRepositoryAwareInterface;
 
 class Nitrogen extends ConfigurableContainer implements DependencyRepositoryAwareInterface
@@ -60,12 +60,8 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryAwar
      * an optional argument or a default implementation will be created.
      *
      * @param \Fusion\Container\Interfaces\DependencyRepositoryInterface $resolver
-     * @param \Nitrogen\Framework\Config\Bindings $bindings
      */
-    public function __construct(
-        DependencyRepositoryInterface $resolver = null,
-        Bindings $bindings = null
-    )
+    public function __construct(DependencyRepositoryInterface $resolver = null)
     {
         parent::__construct();
 
@@ -74,22 +70,34 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryAwar
             $resolver = new DependencyRepository();
         }
 
-        if ($bindings === null)
-        {
-            $bindings = new Bindings();
-        }
-
         $this->setResolver($resolver);
         $this->configureDefaultOptions();
-        $bindings($this->getResolver());
+    }
+
+    /**
+     * Executes the application.
+     */
+    public function execute()
+    {
+        //Apply all bindings
+        if ($this->has('nitrogen.config.bindings'))
+        {
+            $this->applyBindings($this->resolver->resolve($this['nitrogen.config.bindings']));
+        }
+        if ($this->has('app.config.bindings'))
+        {
+            $this->applyBindings($this->resolver->resolve($this['app.config.bindings']));
+        }
+
+        var_dump($this);
     }
 
     /**
      * Invokes a `Bindings` object with a resolver.
      *
-     * @param Bindings $bindings
+     * @param \Nitrogen\Interfaces\DependencyBindingsInterface $bindings
      */
-    public function applyBindings(Bindings $bindings)
+    protected function applyBindings(DependencyBindingsInterface $bindings)
     {
         $bindings($this->getResolver());
     }
@@ -132,7 +140,11 @@ class Nitrogen extends ConfigurableContainer implements DependencyRepositoryAwar
      */
     protected function configureDefaultOptions()
     {
-        //Define default component classes
+        //Define bindings class for Fusion components and protect the entry
+        $this->set('nitrogen.config.bindings', '\Nitrogen\Framework\Config\Bindings', true);
+
+        //Define default classes for components that Nitrogen may end up using
+        //These can be overridden.
         $this['component.router'] = '\Fusion\Router\Router';
         $this['component.routing'] = '\Fusion\Router\RouteGroup';
     }

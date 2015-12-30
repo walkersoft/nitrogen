@@ -11,13 +11,12 @@ namespace Nitrogen\Framework\Config;
 
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
 use Fusion\Http\ServerRequestFactory;
+use Nitrogen\Interfaces\DependencyBindingsInterface;
 
-class Bindings
+class Bindings implements DependencyBindingsInterface
 {
     /**
-     * Creates aliases for all the default components Nitrogen will use.
-     *
-     * @param \Fusion\Container\Interfaces\DependencyRepositoryInterface $resolver
+     * @inheritdoc
      */
     public function __invoke(DependencyRepositoryInterface $resolver)
     {
