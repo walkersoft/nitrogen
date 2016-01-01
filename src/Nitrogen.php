@@ -24,7 +24,7 @@ class Nitrogen extends ConfigurableContainer implements
      * A dependency resolver.
      *
      * This is used by Nitrogen to instantiate various classes that have not
-     * been overidden by an application.
+     * been overridden by an application.
      *
      * @var \Fusion\Container\Interfaces\DependencyRepositoryInterface
      */
@@ -143,7 +143,7 @@ class Nitrogen extends ConfigurableContainer implements
     protected function configureDefaultOptions()
     {
         //Define bindings class for Fusion components and protect the entry
-        $this->set('nitrogen.config.bindings', '\Nitrogen\Framework\Config\Bindings', true);
+        $this->set('nitrogen.bindings', '\Nitrogen\Framework\Config\Bindings', true);
 
         //Define default classes for components that Nitrogen may end up using
         //These can be overridden.
