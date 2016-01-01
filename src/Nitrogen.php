@@ -12,6 +12,7 @@ use Fusion\Container\ConfigurableContainer;
 use Fusion\Container\DependencyRepository;
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
 use Nitrogen\Framework\Core\ApplicationRunner;
+use Nitrogen\Framework\Core\DependencySetupAssistant;
 use Nitrogen\Interfaces\DependencyBindingsInterface;
 use Nitrogen\Interfaces\DependencyRepositoryAwareInterface;
 use Nitrogen\Interfaces\RunnableInterface;
@@ -145,6 +146,13 @@ class Nitrogen extends ConfigurableContainer implements
         $this['component.router'] = '\Fusion\Router\Router';
         $this['component.routing'] = '\Fusion\Router\RouteGroup';
         $this['component.dependency-assistant'] = '\Nitrogen\Framework\Core\DependencySetupAssistant';
+
+        //Define bindings needed before application runner has a chance to
+        //setup the dependency assistant
+        $this->resolver->bindInstance(
+            '\Nitrogen\Framework\Core\DependencySetupAssistant',
+            new DependencySetupAssistant($this)
+        );
     }
 
     /**
