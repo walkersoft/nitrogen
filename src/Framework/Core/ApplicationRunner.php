@@ -59,6 +59,7 @@ class ApplicationRunner implements RunnableInterface
     public function run()
     {
         $this->applyBindings();
+        $this->applyRouting();
     }
 
     /**
@@ -94,8 +95,36 @@ class ApplicationRunner implements RunnableInterface
         $this->dependencyAssistant->run();
     }
 
-    protected function applyRouting(RouteBindingsInterface $bindings)
+    /**
+     * Sets up routes defined by the framework and application
+     */
+    protected function applyRouting()
     {
-        //$bindings($this->app->getResolver()->resolve($this->app['nitrogen.routing']));
+        if ($this->routingAssistant === null)
+        {
+            if ($this->app->has('component.routing-assistant'))
+            {
+                $resolver = $this->app->getResolver();
+                $this->routingAssistant = $resolver->resolve($this->app->get('component.routing-assistant'));
+            }
+            else
+            {
+                $this->routingAssistant = new RoutingSetupAssistant($this->app);
+            }
+        }
+
+        if (!$this->routingAssistant instanceof RoutingSetupAssistant)
+        {
+            throw new \RuntimeException(
+                sprintf(
+                    'Resolved dependency assistance must be type of RoutingSetupAssistant. % given.',
+                    gettype($this->routingAssistant) === 'object'
+                        ? get_class($this->routingAssistant)
+                        : gettype($this->routingAssistant)
+                )
+            );
+        }
+
+        $this->routingAssistant->run();
     }
 }

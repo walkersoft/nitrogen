@@ -13,6 +13,7 @@ use Fusion\Container\DependencyRepository;
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
 use Nitrogen\Framework\Core\ApplicationRunner;
 use Nitrogen\Framework\Core\DependencySetupAssistant;
+use Nitrogen\Framework\Core\RoutingSetupAssistant;
 use Nitrogen\Interfaces\DependencyBindingsInterface;
 use Nitrogen\Interfaces\DependencyRepositoryAwareInterface;
 use Nitrogen\Interfaces\RunnableInterface;
@@ -84,19 +85,8 @@ class Nitrogen extends ConfigurableContainer implements
      */
     public function run()
     {
-        $runner = new ApplicationRunner($this);
+        $runner = $this->resolver->resolve('\Nitrogen\Framework\Core\ApplicationRunner', [$this]);
         $runner->run();
-    }
-
-    /**
-     * Invokes a `Bindings` object with a resolver.
-     *
-     * @param \Nitrogen\Interfaces\DependencyBindingsInterface $bindings
-     */
-    protected function applyBindings(DependencyBindingsInterface $bindings)
-    {
-        // TODO: Get rid of this?
-        $bindings($this->getResolver());
     }
 
     /**
@@ -115,22 +105,6 @@ class Nitrogen extends ConfigurableContainer implements
     }
 
     /**
-     * Returns the router implementation.
-     *
-     * @return \Fusion\Router\Interfaces\RouterInterface
-     */
-    protected function getRouter()
-    {
-        // TODO: Get rid of this?
-        if ($this->router === null && $this->has('component.router'))
-        {
-            $this->router = $this->resolver->resolve($this['component.router']);
-        }
-
-        return $this->router;
-    }
-
-    /**
      * Sets default options for Nitrogen.
      *
      * Injects values into the container that will be used throughout the
@@ -140,18 +114,33 @@ class Nitrogen extends ConfigurableContainer implements
     {
         //Define bindings class for Fusion components and protect the entry
         $this->set('nitrogen.bindings', '\Nitrogen\Framework\Config\Bindings', true);
+        $this->set('nitrogen.routes', '\Nitrogen\Framework\Config\Routes', true);
 
         //Define default classes for components that Nitrogen may end up using
         //These can be overridden.
         $this['component.router'] = '\Fusion\Router\Router';
         $this['component.routing'] = '\Fusion\Router\RouteGroup';
         $this['component.dependency-assistant'] = '\Nitrogen\Framework\Core\DependencySetupAssistant';
+        $this['component.routing-assistant'] = '\Nitrogen\Framework\Core\RoutingSetupAssistant';
 
         //Define bindings needed before application runner has a chance to
         //setup the dependency assistant
         $this->resolver->bindInstance(
             '\Nitrogen\Framework\Core\DependencySetupAssistant',
             new DependencySetupAssistant($this)
+        );
+
+        $this->resolver->bindInstance(
+            '\Nitrogen\Framework\Core\RoutingSetupAssistant',
+            new RoutingSetupAssistant($this)
+        );
+
+        $this->resolver->bindCallback(
+            '\Nitrogen\Framework\Core\ApplicationRunner',
+            function ($app)
+            {
+                return new ApplicationRunner($app);
+            }
         );
     }
 

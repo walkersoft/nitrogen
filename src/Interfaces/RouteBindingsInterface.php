@@ -8,8 +8,9 @@
 
 namespace Nitrogen\Interfaces;
 
+use Fusion\Router\Interfaces\RouteGroupInterface;
 
 interface RouteBindingsInterface
 {
-    public function __invoke();
+    public function __invoke(RouteGroupInterface $routes);
 }
