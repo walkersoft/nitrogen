@@ -11,7 +11,6 @@ namespace Nitrogen;
 use Fusion\Container\ConfigurableContainer;
 use Fusion\Container\DependencyRepository;
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
-use Nitrogen\Framework\Core\ApplicationRunner;
 use Nitrogen\Interfaces\DependencyBindingsInterface;
 use Nitrogen\Interfaces\DependencyRepositoryAwareInterface;
 use Nitrogen\Interfaces\RunnableInterface;
@@ -94,6 +93,7 @@ class Nitrogen extends ConfigurableContainer implements
      */
     protected function applyBindings(DependencyBindingsInterface $bindings)
     {
+        //TODO: Get rid of this?
         $bindings($this->getResolver());
     }
 
@@ -119,6 +119,7 @@ class Nitrogen extends ConfigurableContainer implements
      */
     protected function getRouter()
     {
+        //TODO: Get rid of this?
         if ($this->router === null && $this->has('component.router'))
         {
             $this->router = $this->resolver->resolve($this['component.router']);
@@ -142,6 +143,7 @@ class Nitrogen extends ConfigurableContainer implements
         //These can be overridden.
         $this['component.router'] = '\Fusion\Router\Router';
         $this['component.routing'] = '\Fusion\Router\RouteGroup';
+        $this['component.dependency-assistant'] = '\Nitrogen\Framework\Core\DependencySetupAssistant';
     }
 
     /**

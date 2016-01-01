@@ -68,10 +68,10 @@ class ApplicationRunner implements RunnableInterface
     {
         if ($this->dependencyAssistant === null)
         {
-            if ($this->app->has('nitrogen.dependency-assistant'))
+            if ($this->app->has('component.dependency-assistant'))
             {
                 $resolver = $this->app->getResolver();
-                $this->dependencyAssistant = $resolver->resolve($this->app->get('nitrogen.dependency-assistant'));
+                $this->dependencyAssistant = $resolver->resolve($this->app->get('component.dependency-assistant'));
             }
             else
             {
