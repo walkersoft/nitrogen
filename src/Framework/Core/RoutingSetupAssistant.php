@@ -84,9 +84,7 @@ class RoutingSetupAssistant implements RunnableInterface
             if ($binding instanceof RouteBindingsInterface)
             {
                 $binding(
-                    $this->app->getResolver()->resolve(
-                        $this->app->get('component.routing')
-                    )
+                    $this->app->getRouting()
                 );
             }
         }
