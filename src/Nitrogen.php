@@ -11,6 +11,7 @@ namespace Nitrogen;
 use Fusion\Container\ConfigurableContainer;
 use Fusion\Container\DependencyRepository;
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
+use Nitrogen\Framework\Core\ApplicationRunner;
 use Nitrogen\Interfaces\DependencyBindingsInterface;
 use Nitrogen\Interfaces\DependencyRepositoryAwareInterface;
 use Nitrogen\Interfaces\RunnableInterface;
@@ -82,16 +83,8 @@ class Nitrogen extends ConfigurableContainer implements
      */
     public function run()
     {
-        //Apply all bindings
-        if ($this->has('nitrogen.bindings'))
-        {
-            $this->applyBindings($this->resolver->resolve($this->get('nitrogen.bindings')));
-        }
-
-        if ($this->has('app.bindings'))
-        {
-            $this->applyBindings($this->resolver->resolve($this->get('app.bindings')));
-        }
+        $runner = $this->resolver->resolve('\Nitrogen\Framework\Core\ApplicationRunner');
+        $runner->run();
     }
 
     /**
