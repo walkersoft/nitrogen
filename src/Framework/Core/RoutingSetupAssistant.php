@@ -77,15 +77,16 @@ class RoutingSetupAssistant implements RunnableInterface
             );
         }
 
+        //Get the routing
+        $routing = $this->app->getRouting();
+
         //Cycle the bindings and type check results to make sure classes where
         //resolved are `DependencyBindingsInterface` implementations.
         foreach($bindings as $binding)
         {
             if ($binding instanceof RouteBindingsInterface)
             {
-                $binding(
-                    $this->app->getRouting()
-                );
+                $binding($routing);
             }
         }
     }
