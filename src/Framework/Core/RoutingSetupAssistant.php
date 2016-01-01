@@ -87,6 +87,7 @@ class RoutingSetupAssistant implements RunnableInterface
             if ($binding instanceof RouteBindingsInterface)
             {
                 $binding($routing);
+                echo '<h2>Dump of routing:</h2>' . var_dump($routing);
             }
         }
     }
