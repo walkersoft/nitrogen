@@ -8,7 +8,6 @@
 
 namespace Nitrogen\Framework;
 
-
 use Nitrogen\Interfaces\CompositeViewInterface;
 use Nitrogen\Interfaces\ViewInterface;
 
