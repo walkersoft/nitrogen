@@ -39,13 +39,23 @@ class Bindings implements DependencyBindingsInterface
             '\Fusion\Router\Interfaces\RouteStoreInterface',
             '\Fusion\Router\RouteStore'
         );
-        $resolver->bindContract(
+        $resolver->bindCallback(
             '\Fusion\Router\Interfaces\RouterInterface',
-            '\Fusion\Router\Router'
+            function () use ($resolver)
+            {
+                return $resolver->resolve('\Fusion\Router\Router');
+            }
         );
         $resolver->bindContract(
             '\Fusion\Router\Interfaces\RouteFactoryInterface',
             '\Fusion\Router\RouteFactory'
+        );
+        $resolver->bindCallback(
+            '\Fusion\Router\Interfaces\RouteGroupInterface',
+            function () use ($resolver)
+            {
+                return $resolver->resolve('\Fusion\Router\RouteGroup', [$resolver]);
+            }
         );
 
         /*
