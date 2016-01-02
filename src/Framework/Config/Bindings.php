@@ -8,7 +8,6 @@
 
 namespace Nitrogen\Framework\Config;
 
-
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
 use Fusion\Http\ServerRequestFactory;
 use Nitrogen\Interfaces\DependencyBindingsInterface;
@@ -54,7 +53,7 @@ class Bindings implements DependencyBindingsInterface
             '\Fusion\Router\Interfaces\RouteGroupInterface',
             function () use ($resolver)
             {
-                return $resolver->resolve('\Fusion\Router\RouteGroup', [$resolver]);
+                return $resolver->resolve('\Fusion\Router\RouteGroup');
             }
         );
 
