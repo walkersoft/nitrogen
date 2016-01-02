@@ -77,6 +77,16 @@ class RoutingSetupAssistant implements RunnableInterface
             );
         }
 
+        //Warm the repository with a router
+        if ($this->app->has('component.router'))
+        {
+            $this->app->getResolver()->resolve($this->app->get('component.router'));
+        }
+        else
+        {
+            $this->app->getResolver()->resolve('\Fusion\Router\Interfaces\RouterInterface');
+        }
+
         //Get the routing
         $routing = $this->app->getRouting();
 
