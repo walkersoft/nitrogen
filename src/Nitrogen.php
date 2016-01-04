@@ -14,7 +14,6 @@ use Fusion\Container\Interfaces\DependencyRepositoryInterface;
 use Nitrogen\Framework\Core\ApplicationRunner;
 use Nitrogen\Framework\Core\DependencySetupAssistant;
 use Nitrogen\Framework\Core\RoutingSetupAssistant;
-use Nitrogen\Interfaces\DependencyBindingsInterface;
 use Nitrogen\Interfaces\DependencyRepositoryAwareInterface;
 use Nitrogen\Interfaces\RunnableInterface;
 

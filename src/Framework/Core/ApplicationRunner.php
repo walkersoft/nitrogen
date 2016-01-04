@@ -8,7 +8,6 @@
 
 namespace Nitrogen\Framework\Core;
 
-use Nitrogen\Interfaces\RouteBindingsInterface;
 use Nitrogen\Interfaces\RunnableInterface;
 use Nitrogen\Nitrogen;
 
