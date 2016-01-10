@@ -62,6 +62,8 @@ class ActionDispatcher implements RunnableInterface
     {
         $target = $request->getUri()->getPath();
         $method = $request->getMethod();
+        var_dump($target);
+        var_dump($method);
         var_dump($router);
         $route = $router->match($target, $method);
 
