@@ -19,6 +19,7 @@ class Routes implements RouteBindingsInterface
      */
     public function __invoke(RouteGroupInterface $routes)
     {
+        $routes->setDefaultMethods(['GET']);
         $routes->route('/')->toAction('DefaultAction');
     }
 }
