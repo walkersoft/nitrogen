@@ -115,5 +115,13 @@ class Bindings implements DependencyBindingsInterface
             '\Nitrogen\Interfaces\ActionInterface',
             '\Nitrogen\Framework\Action'
         );
+        $resolver->bindContract(
+            '\Nitrogen\Interfaces\CompositeViewInterface',
+            '\Nitrogen\Framework\CompositeView'
+        );
+        $resolver->bindContract(
+            '\Nitrogen\Interfaces\ViewInterface',
+            '\Nitrogen\Framework\View'
+        );
     }
 }
