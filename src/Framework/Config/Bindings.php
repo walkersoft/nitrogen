@@ -107,5 +107,13 @@ class Bindings implements DependencyBindingsInterface
             '\Nitrogen\Interfaces\ResponderDispatcherInterface',
             '\Nitrogen\Framework\ResponderDispatcher'
         );
+        $resolver->bindContract(
+            '\Nitrogen\Interfaces\ResponderInterface',
+            '\Nitrogen\Framework\Responder'
+        );
+        $resolver->bindContract(
+            '\Nitrogen\Interfaces\ActionInterface',
+            '\Nitrogen\Framework\Action'
+        );
     }
 }
