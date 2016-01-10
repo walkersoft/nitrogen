@@ -10,6 +10,7 @@ namespace Nitrogen\Framework\Config;
 
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
 use Fusion\Http\ServerRequestFactory;
+use Nitrogen\Framework\View;
 use Nitrogen\Interfaces\DependencyBindingsInterface;
 
 class Bindings implements DependencyBindingsInterface
@@ -119,9 +120,12 @@ class Bindings implements DependencyBindingsInterface
             '\Nitrogen\Interfaces\CompositeViewInterface',
             '\Nitrogen\Framework\CompositeView'
         );
-        $resolver->bindContract(
+        $resolver->bindCallback(
             '\Nitrogen\Interfaces\ViewInterface',
-            '\Nitrogen\Framework\View'
+            function ()
+            {
+                return new View('', []);
+            }
         );
     }
 }
