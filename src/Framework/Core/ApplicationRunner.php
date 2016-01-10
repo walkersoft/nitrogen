@@ -8,6 +8,7 @@
 
 namespace Nitrogen\Framework\Core;
 
+use Nitrogen\Framework\Action;
 use Nitrogen\Interfaces\RunnableInterface;
 use Nitrogen\Nitrogen;
 
@@ -59,6 +60,9 @@ class ApplicationRunner implements RunnableInterface
     {
         $this->applyBindings();
         $this->applyRouting();
+
+        $dispatcher = new ActionDispatcher($this->app);
+        $responder = $dispatcher->run();
     }
 
     /**
