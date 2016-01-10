@@ -147,7 +147,7 @@ class ActionDispatcher implements RunnableInterface
             $responder = $this->dispatch($this->dispatchAsString($action), $route);
         }
 
-        if (is_callable($action))
+        if (is_callable($action) && !$action instanceof ActionInterface)
         {
             $responder = $this->dispatchAsCallable($action, $route);
         }
