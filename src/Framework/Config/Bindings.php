@@ -9,6 +9,7 @@
 namespace Nitrogen\Framework\Config;
 
 use Fusion\Container\Interfaces\DependencyRepositoryInterface;
+use Fusion\Http\ResponseTransmitter;
 use Fusion\Http\ServerRequestFactory;
 use Nitrogen\Framework\View;
 use Nitrogen\Interfaces\DependencyBindingsInterface;
@@ -125,6 +126,13 @@ class Bindings implements DependencyBindingsInterface
             function ()
             {
                 return new View('', []);
+            }
+        );
+        $resolver->bindCallback(
+            '\Nitrogen\Framework\Core\ResponderDispatcher',
+            function ($response)
+            {
+                return new ResponseTransmitter($response);
             }
         );
     }

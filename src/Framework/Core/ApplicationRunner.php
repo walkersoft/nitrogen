@@ -62,6 +62,15 @@ class ApplicationRunner implements RunnableInterface
 
         $dispatcher = new ActionDispatcher($this->app);
         $responder = $dispatcher->run();
+
+        $responder();
+
+        $transmitter = $this->app->getResolver()->resolve(
+            '\Fusion\Http\Interfaces\TransmitterInterface',
+            [$responder->getResponse()]
+        );
+
+        $transmitter->send();
     }
 
     /**
