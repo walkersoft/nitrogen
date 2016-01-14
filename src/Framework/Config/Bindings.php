@@ -128,12 +128,5 @@ class Bindings implements DependencyBindingsInterface
                 return new View('', []);
             }
         );
-        $resolver->bindCallback(
-            '\Nitrogen\Framework\Core\ResponderDispatcher',
-            function ($response)
-            {
-                return new ResponseTransmitter($response);
-            }
-        );
     }
 }

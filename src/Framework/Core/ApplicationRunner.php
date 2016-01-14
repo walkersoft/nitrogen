@@ -8,6 +8,7 @@
 
 namespace Nitrogen\Framework\Core;
 
+use Fusion\Http\ResponseTransmitter;
 use Nitrogen\Interfaces\RunnableInterface;
 use Nitrogen\Nitrogen;
 
@@ -65,10 +66,7 @@ class ApplicationRunner implements RunnableInterface
 
         $responder();
 
-        $transmitter = $this->app->getResolver()->resolve(
-            '\Fusion\Http\Interfaces\TransmitterInterface',
-            [$responder->getResponse()]
-        );
+        $transmitter = new ResponseTransmitter($responder->getResponse());
 
         $transmitter->send();
     }
