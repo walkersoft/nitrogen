@@ -8,12 +8,8 @@
 
 namespace Nitrogen\Framework\Core;
 
-
-use Fusion\Http\Interfaces\ResponseTransmitterInterface;
 use Nitrogen\Interfaces\ResponderInterface;
 use Nitrogen\Interfaces\RunnableInterface;
-use Nitrogen\Nitrogen;
-use Psr\Http\Message\ResponseInterface;
 
 class ResponderDispatcher implements RunnableInterface
 {

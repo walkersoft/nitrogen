@@ -20,6 +20,7 @@ class ActionDispatcher implements RunnableInterface
 {
     /**
      * Nitrogen application
+     *
      * @var \Nitrogen\Nitrogen
      */
     protected $app = null;
@@ -56,6 +57,7 @@ class ActionDispatcher implements RunnableInterface
      *
      * @param \Psr\Http\Message\ServerRequestInterface $request
      * @param \Fusion\Router\Interfaces\RouterInterface $router
+     *
      * @return \Fusion\Router\Interfaces\RouteInterface
      */
     protected function getMatchedRoute(ServerRequestInterface $request, RouterInterface $router)
@@ -75,6 +77,7 @@ class ActionDispatcher implements RunnableInterface
      * implementation of the `\Nitrogen\Interfaces\ActionInterface` interface.
      *
      * @param \Fusion\Router\Interfaces\RouteInterface $route
+     *
      * @return \Nitrogen\Interfaces\ActionInterface|string|callable
      * @throws \RuntimeException When `$action` is not an valid action.
      */
@@ -82,7 +85,7 @@ class ActionDispatcher implements RunnableInterface
     {
         $action = $route->getAction();
 
-        if(!$action instanceof ActionInterface && !is_string($action) && !is_callable($action))
+        if (!$action instanceof ActionInterface && !is_string($action) && !is_callable($action))
         {
             throw new \RuntimeException(
                 sprintf(
@@ -123,6 +126,7 @@ class ActionDispatcher implements RunnableInterface
      *
      * @param \Nitrogen\Interfaces\ResponderInterface|string|callable $action
      * @param \Fusion\Router\Interfaces\RouteInterface $route
+     *
      * @return \Nitrogen\Interfaces\ResponderInterface|null
      */
     protected function dispatch($action, RouteInterface $route)
@@ -141,7 +145,7 @@ class ActionDispatcher implements RunnableInterface
 
         if (is_string($action))
         {
-            if($this->app->has('app.action-namespace'))
+            if ($this->app->has('app.action-namespace'))
             {
                 $action = $this->app->get('app.action-namespace') . $action;
             }
@@ -167,13 +171,14 @@ class ActionDispatcher implements RunnableInterface
      * Resolves an action from the FQCN given as a string.
      *
      * @param string $action
+     *
      * @return \Nitrogen\Interfaces\ActionInterface|callable
      */
     protected function dispatchAsString($action)
     {
         $action = $this->app->getResolver()->resolve($action);
 
-        if(!$action instanceof ActionInterface && !is_callable($action))
+        if (!$action instanceof ActionInterface && !is_callable($action))
         {
             throw new \RuntimeException(
                 sprintf(
@@ -197,17 +202,19 @@ class ActionDispatcher implements RunnableInterface
      *
      * @param callable $action
      * @param \Fusion\Router\Interfaces\RouteInterface $route
+     *
      * @throws \RuntimeException When the callable doesn't return a
      *     `ResponderInterface` instance.
      */
     protected function dispatchAsCallable(callable $action, RouteInterface $route)
     {
-        $payload = $this->app->getResolver()->resolve('\Fusion\Payload\Interfaces\DomainPayloadInterface');
+        $payload = $this->app->getResolver()
+                             ->resolve('\Fusion\Payload\Interfaces\DomainPayloadInterface');
         $payload->setItem('matched-route', $route);
 
         $responder = $action(['payload' => $payload]);
 
-        if(!$responder instanceof ResponderInterface)
+        if (!$responder instanceof ResponderInterface)
         {
             throw new \RuntimeException(
                 'Invokable callback actions must return an instance of ResponderInterface.'
@@ -222,6 +229,7 @@ class ActionDispatcher implements RunnableInterface
      *
      * @param \Nitrogen\Interfaces\ActionInterface $action
      * @param \Fusion\Router\Interfaces\RouteInterface $route
+     *
      * @return \Nitrogen\Interfaces\ResponderInterface
      */
     protected function dispatchAsAction(ActionInterface $action, RouteInterface $route)
@@ -231,7 +239,7 @@ class ActionDispatcher implements RunnableInterface
 
         $responder = $action();
 
-        if(!$responder instanceof ResponderInterface)
+        if (!$responder instanceof ResponderInterface)
         {
             $responder = $action->getResponder();
         }
