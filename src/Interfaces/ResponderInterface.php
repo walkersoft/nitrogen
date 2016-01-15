@@ -18,10 +18,8 @@ interface ResponderInterface
      *
      * The method SHOULD ultimately call the view system for a request to
      * generate the output that will effectively be sent back to the client.
-     *
-     * @param array $data Optional data that can be used by the responder.
      */
-    public function __invoke(array $data = []);
+    public function __invoke();
 
     /**
      * Sets a PSR-7 `ResponseInterface` in the responder.

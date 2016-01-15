@@ -62,7 +62,7 @@ class Responder extends AbstractResponder
     /**
      * {@inheritdoc}
      */
-    public function __invoke(array $data = [])
+    public function __invoke()
     {
         return $this->view->render();
     }
