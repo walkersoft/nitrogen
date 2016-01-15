@@ -26,11 +26,9 @@ interface ActionInterface
      * In the event this method invokes the responder directly then this method
      * MUST return null.
      *
-     * @param array $data Optional data that may be used by the action.
-     *
      * @return \Nitrogen\Interfaces\ResponderInterface|null
      */
-    public function __invoke(array $data = []);
+    public function __invoke();
 
     /**
      * Sets a PSR-7 `ServerRequestInterface` instance in the action.
