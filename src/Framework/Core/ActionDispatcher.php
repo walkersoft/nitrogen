@@ -141,9 +141,9 @@ class ActionDispatcher implements RunnableInterface
 
         if (is_string($action))
         {
-            if($this->app->has('setting.action-namespace'))
+            if($this->app->has('app.action-namespace'))
             {
-                $action = $this->app->get('setting.action-namespace') . $action;
+                $action = $this->app->get('app.action-namespace') . $action;
             }
 
             $responder = $this->dispatch($this->dispatchAsString($action), $route);
