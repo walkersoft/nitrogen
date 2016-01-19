@@ -9,8 +9,11 @@
 namespace Nitrogen\Framework\Core;
 
 use Fusion\Http\ResponseTransmitter;
+use Fusion\Http\TempStream;
 use Nitrogen\Interfaces\RunnableInterface;
 use Nitrogen\Nitrogen;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 class ApplicationRunner implements RunnableInterface
 {
@@ -64,7 +67,17 @@ class ApplicationRunner implements RunnableInterface
         $dispatcher = new ActionDispatcher($this->app);
         $responder = $dispatcher->run();
 
-        $responder();
+        $responder(); //This is invoking the responder (which SHOULD render the view)
+
+        //Check for stream in the response, if there is not one, set a temp stream.
+        $response = $responder->getResponse();
+
+        if(!$response->getBody() instanceof StreamInterface)
+        {
+            /** @var ResponseInterface $response */
+            $response = $response->withBody(new TempStream());
+            $responder->setResponse($response);
+        }
 
         $transmitter = new ResponseTransmitter($responder->getResponse());
 
