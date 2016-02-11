@@ -10,6 +10,9 @@
     "crackertastic/fusion.container": "dev-master",
     "crackertastic/fusion.payload": "dev-master"
   },
+  "require-dev": {
+    "phploc/phploc": "*"
+  },
   "repositories": [
     {
       "type": "vcs",
