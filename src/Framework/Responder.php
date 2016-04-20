@@ -9,6 +9,7 @@
 namespace Nitrogen\Framework;
 
 use Fusion\Http\Response;
+use Fusion\Http\TempStream;
 use Fusion\Payload\DomainPayload;
 use Fusion\Payload\Interfaces\PayloadInterface;
 use Fusion\Payload\Payload;
@@ -64,6 +65,13 @@ class Responder extends AbstractResponder
      */
     public function __invoke()
     {
-        return $this->view->render();
+        // TODO: Is this the best place to put such code?
+        ob_start();
+
+        $stream = new TempStream();
+        $this->view->render();
+        $stream->write(ob_get_clean());
+
+        $this->response = $this->response->withBody($stream);
     }
 }
