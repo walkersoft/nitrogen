@@ -40,6 +40,6 @@ class ResponderDispatcher implements RunnableInterface
      */
     public function run()
     {
-        return $this->responder->getResponse();
+        $response = $this->responder->getResponse();
     }
 }
