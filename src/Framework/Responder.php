@@ -65,7 +65,6 @@ class Responder extends AbstractResponder
      */
     public function __invoke()
     {
-        // TODO: Is this the best place to put such code?
         ob_start();
 
         $stream = new TempStream();
