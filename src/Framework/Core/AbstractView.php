@@ -11,7 +11,7 @@ namespace Nitrogen\Framework\Core;
 
 use Nitrogen\Interfaces\ViewInterface;
 
-class AbstractView implements ViewInterface
+abstract class AbstractView implements ViewInterface
 {
     /**
      * A template file.
