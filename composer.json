@@ -3,7 +3,7 @@
   "description": "A light-weight framework based on the ADR pattern where you bring your own domain.",
   "require": {
     "php": ">=5.4",
-    "crackertastic/fusion.collection": "dev-master",
+    "crackertastic/fusion.collection": "dev-master#985a3f3",
     "crackertastic/fusion.http": "dev-master",
     "crackertastic/fusion.router": "dev-master",
     "crackertastic/fusion.log": "dev-master",
